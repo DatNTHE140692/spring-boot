@@ -9,12 +9,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.Serializable;
 import java.util.List;
 
 @RestController
 @RequestMapping("/country")
 @RequiredArgsConstructor
-public class CountryController {
+public class CountryController implements Serializable {
+    private static final long serialVersionUID = 1L;
     private final CountryService countryService;
 
     @GetMapping("/all")

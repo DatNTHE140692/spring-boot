@@ -1,5 +1,6 @@
 package com.example.springbootdemo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -19,6 +20,8 @@ public class Course implements Serializable {
     private String name;
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @ManyToMany(mappedBy = "courses", fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "users_courses", joinColumns = @JoinColumn(name = "cid"), inverseJoinColumns = @JoinColumn(name = "uid"))
+    @JsonIgnore
     private List<User> users;
 }

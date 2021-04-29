@@ -1,5 +1,6 @@
 package com.example.springbootdemo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @Table(name = "users")
 public class User implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -23,26 +25,7 @@ public class User implements Serializable {
     private String password;
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinTable(
-            name = "users_courses",
-            joinColumns = {
-                    @JoinColumn(
-                            name = "uid",
-                            referencedColumnName = "id",
-                            nullable = false,
-                            updatable = false
-                    )
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(
-                            name = "cid",
-                            referencedColumnName = "id",
-                            nullable = false,
-                            updatable = false
-                    )
-            }
-    )
+    @ManyToMany(mappedBy = "users")
     private List<Course> courses;
 
 
